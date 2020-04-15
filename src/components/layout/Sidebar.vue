@@ -1,0 +1,36 @@
+<template>
+	<b-sidebar bg-variant="dark" id="sidebar" shadow
+	           text-variant="white" width="250px">
+		<div class="sidebar-section">
+			<div class="title" v-b-toggle.collapse-1>Inventory</div>
+			<b-collapse class="" id="collapse-1" visible>
+				<b-list-group class="list">
+					<router-link :to="{name: 'AllItems'}" button tag="b-list-group-item">
+						<b-icon icon="inbox-fill"></b-icon>
+						All Items
+					</router-link>
+				</b-list-group>
+			</b-collapse>
+		</div>
+		<div class="sidebar-section">
+			<div class="title" v-b-toggle.collapse-2>section title</div>
+			<b-collapse class="" id="collapse-2">
+				<b-list-group class="list">
+					<b-list-group-item button>Button item</b-list-group-item>
+					<b-list-group-item button>I am a button</b-list-group-item>
+					<b-list-group-item button>This is a button too</b-list-group-item>
+				</b-list-group>
+			</b-collapse>
+		</div>
+	</b-sidebar>
+</template>
+
+<script>
+  export default {
+    name: "Sidebar"
+  }
+</script>
+
+<style scoped>
+
+</style>

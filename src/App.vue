@@ -1,95 +1,55 @@
 <template>
   <div id="app">
+    <b-navbar type="dark" variant="primary">
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="mr-auto">
+        <b-button class="menu-toggle-button" v-b-toggle.sidebar
+                  variant="outline-light">
+          <b-icon icon="list"></b-icon>
+        </b-button>
+      </b-navbar-nav>
 
-    <div id="parentx">
+      <router-link :to="{name: 'Index'}" class="cursor-pointer"
+                   tag="b-navbar-brand">
+        My Shop Web App
+      </router-link>
 
-      <vs-button @click="active=!active, notExpand = false" color="success" type="filled">Open Sidebar Reduce-expand</vs-button>
-      <vs-sidebar :reduce="reduce" :reduce-not-hover-expand="notExpand" parent="body" default-index="1"  color="success" class="sidebarx" spacer v-model="active">
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item-dropdown right>
+          <!-- Using 'button-content' slot -->
+          <template v-slot:button-content>
+            <em>User</em>
+          </template>
+          <b-dropdown-item href="#">Profile</b-dropdown-item>
+          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-navbar>
 
-        <div class="header-sidebar" slot="header">
-          <vs-avatar  size="70px" src="https://randomuser.me/api/portraits/men/85.jpg"/>
-        </div>
-        <vs-sidebar-group open title="Application">
-          <vs-sidebar-item index="1" icon="menu" @click="reduce=!reduce">
-            Toggle Sidebar
-          </vs-sidebar-item>
-          <vs-sidebar-item index="5" icon="verified_user">
-            Configurations
-          </vs-sidebar-item>
-          <vs-sidebar-group title="Store">
-            <vs-sidebar-item index="2.1" icon="store">
-              Store
-            </vs-sidebar-item>
-            <vs-sidebar-item index="2.2" icon="nature_people">
-              Nature
-            </vs-sidebar-item>
-            <vs-sidebar-item index="2.3" icon="style">
-              Style
-            </vs-sidebar-item>
-          </vs-sidebar-group>
-          <vs-sidebar-item index="2" icon="gavel">
-            History
-          </vs-sidebar-item>
-          <vs-sidebar-item index="3" icon="https">
-            Security
-          </vs-sidebar-item>
-          <vs-sidebar-item index="4" icon="help">
-            Help
-          </vs-sidebar-item>
-        </vs-sidebar-group>
+    <Sidebar/>
 
+    <transition mode="out-in" name="fade">
+      <router-view></router-view>
+    </transition>
 
-        <vs-divider icon="person" position="left">
-          User
-        </vs-divider>
-
-
-        <vs-sidebar-item index="6" icon="account_box">
-          Profile
-        </vs-sidebar-item>
-
-        <div class="footer-sidebar" slot="footer">
-          <vs-button icon="settings" color="primary" type="border"></vs-button>
-        </div>
-
-      </vs-sidebar>
-    </div>
   </div>
 </template>
 
 <script>
+  import Sidebar from './components/layout/Sidebar'
+
   export default {
-    data:()=>({
-      active:false,
-      notExpand: false,
-      reduce: true
-    })
+    components: {
+      Sidebar
+    },
+    data:()=>({}),
+
   }
 </script>
 
 <style lang="sass">
-  body
-    font-family: 'Cairo',Arial
-  .header-sidebar
-    display: flex
-    align-items: center
-    justify-content: center
-    flex-direction: column
-    width: 100%
-    h4
-      display: flex
-      align-items: center
-      justify-content: center
-      width: 100%
-      & > button
-        margin-left: 10px
-      .footer-sidebar
-        display: flex
-        align-items: center
-        justify-content: space-between
-        width: 100%
-      & > button
-        border: 0px solid rgba(0,0,0,0) !important
-        border-left: 1px solid rgba(0,0,0,.07) !important
-        border-radius: 0px !important
+  @import './assets/css/custom.sass'
+
+
 </style>

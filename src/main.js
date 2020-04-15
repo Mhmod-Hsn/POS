@@ -1,22 +1,16 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
+import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
 
-// import vuesax with icons
-import Vuesax from 'vuesax'
-import 'material-icons/iconfont/material-icons.css';
-
-import 'vuesax/dist/vuesax.css' //Vuesax styles
-Vue.use(Vuesax, {
-  theme: {
-    colors: {
-      primary: '#f00000',
-    }
-  }
-})
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
 
 
 Vue.config.productionTip = false;
+
 
 new Vue({
   router,

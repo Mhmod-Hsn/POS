@@ -1,0 +1,62 @@
+// Bootstrap override
+@import "variables.sass"
+@import '../../../node_modules/bootstrap/scss/bootstrap'
+@import '../../../node_modules/bootstrap-vue/src/index.scss'
+
+
+.cursor-pointer
+  cursor: pointer
+
+// Custom CSS
+.menu-toggle-button
+  font-size: 24px
+  padding: 3px
+  line-height: 0
+
+#sidebar
+  background-color: rgba($dark, 0.95) !important
+
+  .sidebar-section
+    margin-bottom: 20px
+
+    .title
+      font-size: 16px
+      font-weight: bold
+      padding: 0 0 0 15px
+      cursor: pointer
+      color: #ddd
+
+    .list
+      .list-group-item
+        border: none
+        border-radius: 0
+        border-left: 6px solid transparent
+        background: none
+        padding: 7px 15px
+        color: #ddd
+        cursor: pointer
+
+        svg
+          margin-right: 10px
+          width: 1.5em
+          height: 1.5em
+
+        &:hover
+          border-left-color: $primary
+          background: rgba(#fff, 0.05)
+
+        &:active
+
+        &:focus
+          outline: none
+
+
+// Transition
+.fade-enter-active
+  transition: opacity 1s
+
+.fade-leave-active
+  opacity: 0
+
+.fade-enter, .fade-leave-to
+  opacity: 0
