@@ -54,10 +54,20 @@
 					</b-list-group>
 				</b-collapse>
 
+				<hr>
 
+				<div class="title" v-b-toggle.collapse-4>Operations</div>
+				<b-collapse class="" id="collapse-4" visible>
+					<b-list-group class="list">
+						<router-link :to="{name: 'AllOperations'}" button
+						             tag="b-list-group-item">
+							<b-icon icon="person-fill"></b-icon>
+							All Operations
+						</router-link>
+
+					</b-list-group>
+				</b-collapse>
 			</div>
-
-
 		</b-sidebar>
 
 		<div class="sidebar-overlay" v-b-toggle.sidebar></div>

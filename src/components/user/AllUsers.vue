@@ -54,13 +54,48 @@
 		         ok-disabled
 		         title="Edit"
 		>
-			<p class="my-4">Hello from modal!</p>
+			<b-form @submit.prevent="editUser">
+				<b-form-group>
+					<b-form-input
+						id="name"
+						placeholder="+ User Name"
+						type="text"
+						v-model="user.name"
+					></b-form-input>
+				</b-form-group>
+
+
+				<b-form-group>
+					<label for="money">money</label>
+					<b-form-input
+						id="money"
+						max="99999999999999"
+						min="0"
+						placeholder="Money"
+						type="number"
+						v-model="user.money"
+					></b-form-input>
+				</b-form-group>
+
+				<div class="d-flex flex-row-reverse">
+					<b-button class="mx-1" type="submit" variant="primary">Submit
+					</b-button>
+					<b-button @click="showModal=false" class="mx-1"
+					          variant="secondary">cancel
+					</b-button>
+				</div>
+
+				<p class="text-danger mt-4" v-if="!!feedback">{{feedback}}</p>
+			</b-form>
+
 		</b-modal>
+
 	</div>
 </template>
 
 <script>
   import db from '@/firebase/init'
+  import slugify from 'slugify'
 
   export default {
     name: "AllUsers",
@@ -76,34 +111,18 @@
           {key: 'name', label: 'Name', sortable: true},
           {key: 'money', label: 'Money', sortable: true},
           {key: 'actions', label: 'Action'},
-        ]
+        ],
+        user: {},
+        feedback: null
       }
     },
     methods: {
-      rowClicked(user) {
-        // this.showModal=true
-        console.log(user)
-
-        this.$swal({
-          title: 'Are you sure?',
-          input: 'number',
-          inputAttributes: {
-            min: 0
-          },
-          icon: 'warning',
-          showCancelButton: false,
-          confirmButtonText: 'Edit!',
-          cancelButtonText: 'Keep it!',
-          showCloseButton: true,
-          preConfirm: (number) => {
-            db.collection("users").doc(user.id).update({
-              money: number
-            }).then(() => {
-              this.$swal('Edited', 'You successfully edited', 'success')
-            })
-          },
-        })
-
+      rowClicked(u) {
+        this.showModal = true
+        this.user.id = u.id
+        this.user.name = u.name
+        this.user.money = u.money
+        this.user.slug = u.slug
       },
       removeitem(item) {
         this.$swal({
@@ -131,7 +150,23 @@
         })
 
       },
+      editUser() {
+        // Slugify Name
+        this.user.slug = slugify(this.user.name, {
+          replacement: '-',
+          remove: /[$*_+~.()'"!\-#:@]/g,
+          lower: true
+        })
 
+        db.collection("users").doc(this.user.id).update({
+          name: this.user.name,
+          money: this.user.money,
+          slug: this.user.slug
+        }).then(() => {
+          this.showModal = false
+          this.$swal('Edited', 'You successfully edited', 'success')
+        })
+      },
     },
     computed: {
       rows() {
