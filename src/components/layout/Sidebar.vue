@@ -35,7 +35,28 @@
 						</router-link>
 					</b-list-group>
 				</b-collapse>
+				<hr>
+
+				<div class="title" v-b-toggle.collapse-3>Users</div>
+				<b-collapse class="" id="collapse-3" visible>
+					<b-list-group class="list">
+						<router-link :to="{name: 'AllUsers'}" button
+						             tag="b-list-group-item">
+							<b-icon icon="person-fill"></b-icon>
+							All Users
+						</router-link>
+
+						<router-link :to="{name: 'AddUser'}" button
+						             tag="b-list-group-item">
+							<b-icon icon="plus"></b-icon>
+							Add User
+						</router-link>
+					</b-list-group>
+				</b-collapse>
+
+
 			</div>
+
 
 		</b-sidebar>
 

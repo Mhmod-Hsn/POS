@@ -21,25 +21,15 @@
 						</b-form-group>
 
 						<b-form-group>
-							<b-form-select :options="categories" v-model="item.category">
-								<template v-slot:first>
-									<b-form-select-option :value="null" disabled selected>--
-										Please
-										select category --
-									</b-form-select-option>
-								</template>
-							</b-form-select>
+							<v-select :options="categories" :reduce="cat =>
+						cat.text" label="text" v-model="item.category"></v-select>
 						</b-form-group>
 
 
 						<b-form-group>
-							<b-form-input
-								id="quantity"
-								min="1"
-								placeholder="Quantity"
-								type="number"
-								v-model="item.quantity"
-							></b-form-input>
+							<label for="quantity">Quantity</label>
+							<b-form-spinbutton id="quantity" min="1"
+							                   v-model="item.quantity"></b-form-spinbutton>
 						</b-form-group>
 
 
@@ -74,7 +64,7 @@
     },
     methods: {
       addItem() {
-        if (this.item.name && this.item.category && this.item.quantity > 1) {
+        if (this.item.name && this.item.category && this.item.quantity >= 1) {
           this.showOverlay = true
 
           // Slugify Name
@@ -91,6 +81,8 @@
             category: this.item.category,
             quantity: this.item.quantity
           }).then(() => {
+            this.$swal('Success', `${this.item.name} ( ${this.item.quantity} ) added successfully`, 'success')
+
             this.item = {}
             this.feedback = null
             this.showOverlay = false

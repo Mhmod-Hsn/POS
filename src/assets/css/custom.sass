@@ -2,6 +2,7 @@
 @import "variables.sass"
 @import '../../../node_modules/bootstrap/scss/bootstrap'
 @import '../../../node_modules/bootstrap-vue/src/index.scss'
+@import "../../../node_modules/vue-select/src/scss/vue-select.scss"
 
 
 .cursor-pointer
@@ -77,6 +78,21 @@ body
 .table
   background: #fff !important
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important
+
+.pagination
+  .page-item
+    & > span
+      background: rgba(#fff, 1)
+
+    &.disabled > span
+      transition: all 0.3s ease-in-out
+      background: rgba(0, 0, 0, 0.1)
+      cursor: not-allowed
+
+    .page-link
+      z-index: 0
+
+
 .fade-enter-active
   transition: opacity 1s
 

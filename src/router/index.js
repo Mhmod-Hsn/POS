@@ -6,8 +6,14 @@ import Index from "../views/Index.vue";
 // inventory
 import AllItems from '@/components/inventory/AllItems'
 import AddItem from '@/components/inventory/AddItem'
+
+// category
 import AddCategory from '@/components/category/AddCategory'
 import AllCategories from '@/components/category/AllCategories'
+
+// users
+import AddUser from '@/components/user/AddUser'
+import AllUsers from '@/components/user/AllUsers'
 
 
 Vue.use(VueRouter);
@@ -37,6 +43,16 @@ const routes = [
     path: "/category/all",
     name: "AllCategories",
     component: AllCategories
+  },
+  {
+    path: "/user/add",
+    name: "AddUser",
+    component: AddUser
+  },
+  {
+    path: "/user/all",
+    name: "AllUsers",
+    component: AllUsers
   },
 
 

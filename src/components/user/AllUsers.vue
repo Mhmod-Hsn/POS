@@ -1,6 +1,6 @@
 <template>
-	<div class="all-items container pt-3">
-		<h1 class="page-title h3">All Items</h1>
+	<div class="all-users container pt-3">
+		<h2>All Users</h2>
 
 		<b-overlay :show="showOverlay" rounded="sm">
 
@@ -13,13 +13,13 @@
 
 				<b-table
 					:current-page="currentPage"
-					:per-page="perPage"
-					id="itemsTable"
 					:fields="fields"
 					:items="items"
+					:per-page="perPage"
 					:searchKeyword="searchKeyword"
 					@row-clicked="rowClicked($event)"
-					hover>
+					hover
+					id="itemsTable">
 
 					<template v-slot:cell(actions)="data">
 						<b-button
@@ -31,19 +31,31 @@
 
 				</b-table>
 
-				<div class="d-flex justify-content-center mt-3">
-					<b-pagination
-						:per-page="perPage"
-						:total-rows="rows"
-						aria-controls="itemsTable"
-						pills
-						v-model="currentPage"
-					></b-pagination>
-				</div>
 			</div>
 		</b-overlay>
 
+		<div class="d-flex justify-content-center mt-3">
+			<b-pagination
+				:per-page="perPage"
+				:total-rows="rows"
+				aria-controls="itemsTable"
+				pills
+				v-model="currentPage"
+			></b-pagination>
+		</div>
 
+		<!--		Editing Modal-->
+		<b-modal :visible="showModal" cancel-disabled centered hide-footer
+		         id="editing-modal"
+		         ignore-enforce-focus-selector
+		         no-close-on-backdrop
+		         no-close-on-esc
+		         no-enforce-focus
+		         ok-disabled
+		         title="Edit"
+		>
+			<p class="my-4">Hello from modal!</p>
+		</b-modal>
 	</div>
 </template>
 
@@ -51,9 +63,10 @@
   import db from '@/firebase/init'
 
   export default {
-    name: "AllItems",
+    name: "AllUsers",
     data() {
       return {
+        showModal: false,
         perPage: 20,
         currentPage: 1,
         showOverlay: null,
@@ -61,15 +74,36 @@
         dataArray: [],
         fields: [
           {key: 'name', label: 'Name', sortable: true},
-          {key: 'category', label: 'Category', sortable: true},
-          {key: 'quantity', label: 'Quantity', sortable: true},
+          {key: 'money', label: 'Money', sortable: true},
           {key: 'actions', label: 'Action'},
         ]
       }
     },
     methods: {
-      rowClicked(event) {
-        console.log(event.name)
+      rowClicked(user) {
+        // this.showModal=true
+        console.log(user)
+
+        this.$swal({
+          title: 'Are you sure?',
+          input: 'number',
+          inputAttributes: {
+            min: 0
+          },
+          icon: 'warning',
+          showCancelButton: false,
+          confirmButtonText: 'Edit!',
+          cancelButtonText: 'Keep it!',
+          showCloseButton: true,
+          preConfirm: (number) => {
+            db.collection("users").doc(user.id).update({
+              money: number
+            }).then(() => {
+              this.$swal('Edited', 'You successfully edited', 'success')
+            })
+          },
+        })
+
       },
       removeitem(item) {
         this.$swal({
@@ -84,7 +118,7 @@
           if (result.value) {
             this.showOverlay = true
             // Delete doc from firestore
-            db.collection('item').doc(item.id).delete()
+            db.collection('users').doc(item.id).delete()
               .then(() => {
                 this.dataArray = this.dataArray.filter(i => {
                   return i.id !== item.id
@@ -95,7 +129,9 @@
               })
           }
         })
-      }
+
+      },
+
     },
     computed: {
       rows() {
@@ -104,22 +140,19 @@
       items() {
         // return this.dataArray
         return this.searchKeyword ? this.dataArray.filter(i =>
-          i.name.includes(this.searchKeyword) ||
-          i.category.includes(this.searchKeyword) ||
-          i.quantity.toString().includes(this.searchKeyword))
+            i.name.includes(this.searchKeyword))
           : this.dataArray
       }
     },
     created() {
-      db.collection('items').get()
+      db.collection('users').get()
         .then(snapshot => {
           snapshot.forEach(doc => {
             let item = {}
-            item.name = doc.data().name
-            item.category = doc.data().category
-            item.quantity = doc.data().quantity
-            item.slug = doc.data().slug
             item.id = doc.id
+            item.name = doc.data().name
+            item.money = doc.data().money
+            item.slug = doc.data().slug
             this.dataArray.push(item)
           })
         })
@@ -127,6 +160,7 @@
           console.log('error:' + e)
         })
     }
+
   }
 </script>
 
