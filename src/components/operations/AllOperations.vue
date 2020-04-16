@@ -58,7 +58,7 @@
             item.content = doc.data().content
             item.timestamp = doc.data().timestamp
             item.datetime = moment(doc.data().timestamp).format('lll')
-            this.dataArray.push(item)
+            this.dataArray.unshift(item)
           })
         })
         .catch(e => {
