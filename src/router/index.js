@@ -15,6 +15,9 @@ import AllCategories from '@/components/category/AllCategories'
 import AddUser from '@/components/user/AddUser'
 import AllUsers from '@/components/user/AllUsers'
 
+// operations
+import AllOperations from '@/components/operations/AllOperations'
+
 
 Vue.use(VueRouter);
 
@@ -54,6 +57,11 @@ const routes = [
     name: "AllUsers",
     component: AllUsers
   },
+  {
+    path: "/operation",
+    name: "AllOperations",
+    component: AllOperations
+  }
 
 
 ];

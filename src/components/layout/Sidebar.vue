@@ -61,7 +61,7 @@
 					<b-list-group class="list">
 						<router-link :to="{name: 'AllOperations'}" button
 						             tag="b-list-group-item">
-							<b-icon icon="person-fill"></b-icon>
+							<b-icon icon="check-all"></b-icon>
 							All Operations
 						</router-link>
 
