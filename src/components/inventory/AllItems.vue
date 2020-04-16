@@ -219,7 +219,6 @@
             quantity: this.product.quantity,
             category: this.product.category
           }).then(() => {
-            console.log(this.product)
             this.showModal = false;
             this.$swal('Edited', 'You successfully edited', 'success')
           })
@@ -276,6 +275,22 @@
       },
       checkout() {
         if (this.buyingUser && this.cart.length > 0) {
+          // edit each product in firebase
+
+          this.cart.forEach(cart => {
+            let oldQuantity = 0
+            this.dataArray.forEach(data => {
+              data.id === cart.id ? oldQuantity = data.quantity : ''
+            })
+
+
+            db.collection("items").doc(cart.id).update({
+              quantity: (oldQuantity - cart.quantity),
+            }).then(() => {
+              console.log('old quantity:' + oldQuantity + ' what was bought: ' + cart.quantity);
+            })
+          })
+
           // add to operations
           let t = ''
           this.cart.forEach(e => t += `${e.name} ( ${e.quantity} ) - `)
@@ -285,16 +300,12 @@
             type: 'sell'
           }).then(() => {
 
-
-            this.$swal('Success', `${this.item.name} ( ${this.item.quantity} ) added successfully`, 'success')
-            this.item = {}
-            this.feedback = null
-            this.showOverlay = false
           })
 
           // reset
           this.$swal('Buying Successfully', '', 'success')
           this.showCart = false
+          this.feedback = null
           this.cart = []
         } else {
           this.feedback = 'check you inputs'
