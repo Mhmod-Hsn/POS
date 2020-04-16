@@ -5,6 +5,9 @@ import Index from "../views/Index.vue";
 
 // inventory
 import AllItems from '@/components/inventory/AllItems'
+import AddItem from '@/components/inventory/AddItem'
+import AddCategory from '@/components/category/AddCategory'
+import AllCategories from '@/components/category/AllCategories'
 
 
 Vue.use(VueRouter);
@@ -16,9 +19,24 @@ const routes = [
     component: Index
   },
   {
-    path: "/all",
+    path: "/items",
     name: "AllItems",
     component: AllItems
+  },
+  {
+    path: "/items/add",
+    name: "AddItem",
+    component: AddItem
+  },
+  {
+    path: "/category/add",
+    name: "AddCategory",
+    component: AddCategory
+  },
+  {
+    path: "/category/all",
+    name: "AllCategories",
+    component: AllCategories
   },
 
 
