@@ -36,16 +36,7 @@
 
 
 		</div>
-		<div class="sidebar-section">
-			<div class="title" v-b-toggle.collapse-2>section title</div>
-			<b-collapse class="" id="collapse-2">
-				<b-list-group class="list">
-					<b-list-group-item button>Button item</b-list-group-item>
-					<b-list-group-item button>I am a button</b-list-group-item>
-					<b-list-group-item button>This is a button too</b-list-group-item>
-				</b-list-group>
-			</b-collapse>
-		</div>
+
 	</b-sidebar>
 </template>
 

@@ -19,7 +19,7 @@ const routes = [
     component: Index
   },
   {
-    path: "/items",
+    path: "/items/all",
     name: "AllItems",
     component: AllItems
   },
