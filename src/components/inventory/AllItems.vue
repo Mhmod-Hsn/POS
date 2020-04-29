@@ -287,7 +287,7 @@
             db.collection("items").doc(cart.id).update({
               quantity: (oldQuantity - cart.quantity),
             }).then(() => {
-              console.log('old quantity:' + oldQuantity + ' what was bought: ' + cart.quantity);
+              // console.log('old quantity:' + oldQuantity + ' what was bought: ' + cart.quantity);
             })
           })
 

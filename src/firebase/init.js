@@ -1,5 +1,5 @@
-import firebase from 'firebase/app'
-import firestore from '@firebase/firestore'
+import firebase from "firebase/app";
+import firestore from "@firebase/firestore";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -11,7 +11,8 @@ var firebaseConfig = {
   messagingSenderId: "866034208651",
   appId: "1:866034208651:web:fa91f0cc0094e64ad6698e"
 };
+const fs = firestore;
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-export default firebaseApp.firestore()
+export default firebaseApp.firestore();
