@@ -1,5 +1,7 @@
 # point-of-sale
 
+![](preview.jpg)
+
 ## Project setup
 ```
 npm install
