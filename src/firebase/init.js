@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import firebase from "firebase/app";
 import firestore from "@firebase/firestore";
 
@@ -11,7 +13,6 @@ var firebaseConfig = {
   messagingSenderId: "866034208651",
   appId: "1:866034208651:web:fa91f0cc0094e64ad6698e"
 };
-const fs = firestore;
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
